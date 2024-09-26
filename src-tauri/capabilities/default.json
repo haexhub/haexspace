@@ -1,0 +1,23 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["*"],
+  "permissions": [
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:app:default",
+    "core:resources:default",
+    "core:menu:default",
+    "core:tray:default",
+    "core:window:allow-set-title",
+    "shell:allow-execute",
+    "shell:default",
+    "shell:allow-open",
+    "fs:allow-read",
+    "fs:allow-home-read-recursive",
+    "fs:deny-webview-data-windows",
+    "fs:deny-webview-data-linux"
+  ]
+}

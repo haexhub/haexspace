@@ -1,0 +1,22 @@
+{
+  "create": {
+    "folder": "Create Folder",
+    "file": "Create File"
+  },
+  "upload": {
+    "folders": "Upload Folders",
+    "files": "Upload Files"
+  },
+
+  "folder": {
+    "download": "Download",
+    "rename": "Rename",
+    "trash": "Trash"
+  },
+  "file": {
+    "download": "Download",
+    "rename": "Rename",
+    "trash": "Trash",
+    "preview": "Vorschau"
+  }
+}

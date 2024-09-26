@@ -1,0 +1,9 @@
+{
+  "files": {
+    "table": {
+      "name": "Name",
+      "size": "Größe",
+      "modified_at": "zuletzt geändert"
+    }
+  }
+}
