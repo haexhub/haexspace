@@ -1,21 +1,15 @@
 <template>
-  <UiTable
-    :items="data ?? []"
-    :columns="columns ?? []"
-  >
-  </UiTable>
+  <UiTableFiles :items="files ?? []"> </UiTableFiles>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-  name: 'allFiles',
+  name: 'filesAll',
 });
 
-const { columns } = storeToRefs(useFileStore());
-const { readFilesAsync, filesToTable } = useFileStore();
+const { displayFiles } = storeToRefs(useFileStore());
+const { syncFilesAsync, filesToTable } = useFileStore();
 
-const { data } = await useAsyncData(async () => {
-  const files = await readFilesAsync();
-  return filesToTable(files);
-});
+await useAsyncData(() => syncFilesAsync());
+const files = computed(() => filesToTable(displayFiles.value));
 </script>

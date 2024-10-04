@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex justify-between shrink-0 transition-[width] ease-in duration-300 rounded-r z-30 w-0 sm:w-96 h-full overflow-hidden absolute sm:relative shadow"
+    class="flex justify-between shrink-0 transition-[width] ease-in duration-300 z-30 w-0 sm:w-96 h-full overflow-hidden absolute sm:relative shadow"
     :class="[show ? 'w-96' : 'w-0']"
     ref="sidebar"
   >
@@ -32,9 +32,13 @@
       </div>
     </div>
 
-    <div class="bg-slate-200 flex flex-col w-full">
-      <div class="h-16 flex items-center bg-slate-300 shrink-0">
-        <span class="px-4 font-semibold text-slate-800 shrink-0">
+    <div class="bg-slate-200 dark:bg-slate-700 flex flex-col w-full">
+      <div
+        class="h-16 flex items-center bg-slate-300 dark:bg-slate-600 shrink-0"
+      >
+        <span
+          class="px-4 font-semibold text-slate-800 dark:text-slate-200 shrink-0"
+        >
           Haex Cloud
         </span>
         <UiButton
@@ -44,7 +48,7 @@
         />
       </div>
 
-      <div class="shadow relative w-full h-full">
+      <div class="relative w-full h-full">
         <UiSidebarSubmenuFolders v-if="useRoute().path?.includes('files')" />
         <UiSidebarSubmenuSettings
           v-if="useRoute().path?.includes('settings')"

@@ -1,46 +1,91 @@
 <template>
-  <div>
-    <UiTable
-      :items="filesAndFolders"
-      :columns="columns"
+  <UiContextMenu :menu="contextMenu">
+    <UiTableFiles
+      :items="data"
+      @click.right="onRightClick"
     >
-    </UiTable>
-  </div>
+    </UiTableFiles>
+  </UiContextMenu>
+  <DialogFolderCreate v-model="showDialog" />
 </template>
 
 <script setup lang="ts">
+import type { IContextMenuItem } from '~/components/ui/ContextMenu/types';
 definePageMeta({
-  name: 'folder',
+  name: 'folders',
 });
 
-const { readFilesAsync, filesToTable } = useFileStore();
-const { columns } = storeToRefs(useFileStore());
-const { readFoldersAsync } = useFolderStore();
+const showDialog = ref(false);
+const showContextMenu = ref(true);
 
-const getFilesAndFoldersAsync = async (id: string) => {
-  try {
-    const files = await readFilesAsync({
-      filter: { folder: { _eq: id } },
-    });
-    const filesForTable = files.map((file) => filesToTable);
-    const folders = await readFoldersAsync({ filter: { parent: { _eq: id } } });
-    console.log('folders', folders);
-    const folderForTable = folders.map((folder) => ({
-      name: folder.name,
-      size: null,
-      modified: null,
-    }));
-    return [...folderForTable, ...filesForTable];
-  } catch (error) {
-    return [];
+const { currentFolderId } = storeToRefs(useFolderStore());
+const { getFolderContentAsync } = useFolderStore();
+
+const { t } = useI18n();
+const contextMenu: IContextMenuItem[] = [
+  {
+    label: t('create.folder'),
+    handler: () => {
+      showDialog.value = true;
+    },
+  },
+  {
+    label: t('create.file'),
+    handler: () => {},
+    serperator: true,
+  },
+  {
+    label: t('upload.folders'),
+    handler: () => {},
+  },
+  {
+    label: t('upload.files'),
+    handler: () => {
+      open();
+    },
+  },
+];
+
+const { data } = await useAsyncData(
+  `syncFolderContents`,
+  () => getFolderContentAsync(),
+  {
+    watch: [currentFolderId],
+    //server: false,
   }
-};
-
-const route = useRoute();
-
-const { data: filesAndFolders, refresh } = await useAsyncData(() =>
-  getFilesAndFoldersAsync(getSingleParam(route.params.id))
 );
 
-watch(route, () => refresh());
+const trigger = ref<HTMLButtonElement>();
+const onRightClick = () => {
+  console.log('righjt lcik', trigger.value);
+  showContextMenu.value = true;
+  //trigger.value?.cl;
+};
 </script>
+
+<i18n lang="json">
+{
+  "de": {
+    "create": {
+      "folder": "Ordner erstellen",
+      "file": "Datei erstellen"
+    },
+
+    "upload": {
+      "folders": "Ordner hochladen",
+      "files": "Dateien hochladen"
+    }
+  },
+
+  "en": {
+    "create": {
+      "folder": "Create Folder",
+      "file": "Create File"
+    },
+    "upload": {
+      "folders": "Upload Folders",
+      "files": "Upload Files"
+    }
+  }
+}
+</i18n>

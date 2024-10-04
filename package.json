@@ -14,7 +14,7 @@
     "@directus/sdk": "^17.0.1",
     "@nuxt/image": "^1.8.0",
     "@nuxtjs/i18n": "^8.5.5",
-    "@pinia/nuxt": "^0.5.4",
+    "@pinia/nuxt": "^0.5.5",
     "@tauri-apps/api": "2.0.0-rc.4",
     "@tauri-apps/plugin-fs": "2.0.0-rc.2",
     "@tauri-apps/plugin-shell": "2.0.0-rc.1",
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@egoist/tailwindcss-icons": "^1.8.1",
-    "@iconify/json": "^2.2.252",
+    "@iconify/json": "^2.2.255",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@tauri-apps/cli": "2.0.0-rc.16",
     "postcss-custom-properties": "^13.3.12",

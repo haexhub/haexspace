@@ -4,3 +4,18 @@ export interface IColumn {
   class?: string;
   formatter?: (item: any) => any;
 }
+
+export interface ITableFileColumn {
+  prop: keyof ITableFile;
+  label: string;
+  class?: string;
+  formatter?: (item: any) => any;
+}
+
+export interface ITableFile {
+  id: string;
+  name: string;
+  size?: string | null;
+  modified: string | null;
+  isDirectory: boolean;
+}

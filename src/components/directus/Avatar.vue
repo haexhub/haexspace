@@ -37,7 +37,10 @@ const props = defineProps({
   },
 });
 
-const { data } = await useAsyncData(async () =>
-  getThumbnailAsync(props.user?.avatar)
+const { data, execute } = await useAsyncData(
+  async () => getThumbnailAsync(props.user?.avatar),
+  { immediate: false }
 );
+
+onMounted(() => execute());
 </script>

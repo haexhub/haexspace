@@ -9,9 +9,8 @@ definePageMeta({
   name: 'keepass',
 });
 
-const { readFoldersAsync } = useFolderStore();
-const { folderTree, folders } = storeToRefs(useFolderStore());
+const { readAllFoldersAsync } = useFolderStore();
+const { folderTree } = storeToRefs(useFolderStore());
 
-const { data } = await useAsyncData(() => readFoldersAsync());
-folders.value = data.value ?? [];
+await useAsyncData(() => readAllFoldersAsync());
 </script>

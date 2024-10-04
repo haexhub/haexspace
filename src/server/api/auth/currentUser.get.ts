@@ -1,7 +1,7 @@
-import { useDirectusUser } from '~/server/utils/directus/user';
+//import { useDirectusUser } from '~/server/old_utils/directus/user';
 
 export default defineEventHandler(async (event) => {
-  try {
+  /* try {
     const { getCurrentUserAsync } = useDirectusUser();
     const user = await getCurrentUserAsync(event);
     if (user) {
@@ -10,5 +10,5 @@ export default defineEventHandler(async (event) => {
     return user;
   } catch (error) {
     console.log('ERROR get user', error);
-  }
+  } */
 });

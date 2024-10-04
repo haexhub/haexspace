@@ -23,6 +23,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  name: 'home',
+});
+
 const token = ref();
 
 const test = useCookie('test', { sameSite: 'strict' });

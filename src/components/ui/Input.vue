@@ -30,7 +30,7 @@
         ]"
         :type
         :id
-        :name
+        :name="name ?? id"
         :placeholder
         class="w-full bg-slate-100 bg-opacity-20 focus:bg-opacity-10 focus:ring-2 focus:ring-primary-hover focus:border-primary-active border-slate-600 transition-colors duration-200 ease-in-out text-base outline-none py-2 px-3 leading-8 border z-10 dark:text-slate-200"
         v-model="input"
@@ -51,11 +51,20 @@
         />
       </div>
     </div>
+
+    <span
+      v-show="errors"
+      class="text-sm text-red-600 flex flex-col"
+    >
+      <p v-for="error in errors">{{ error }}</p>
+    </span>
   </fieldset>
 </template>
 
 <script setup lang="ts">
-defineProps({
+import { type ZodSchema } from 'zod';
+
+const props = defineProps({
   placeholder: {
     type: String,
     default: '',
@@ -68,11 +77,26 @@ defineProps({
   name: String,
   prependIcon: String,
   appendIcon: String,
+  rules: Object as PropType<ZodSchema>,
 });
 
-const input = defineModel({
+const input = defineModel<string | number | undefined | null>({
   required: true,
 });
 
+const errors = defineModel<string[] | undefined>('errors');
+
 const id = useId();
+
+watch(input, () => {
+  if (props.rules) {
+    const result = props.rules.safeParse(input.value);
+    console.log('check result', result);
+    if (!result.success) {
+      errors.value = result.error.errors.map((error) => error.message);
+    } else {
+      errors.value = [];
+    }
+  }
+});
 </script>

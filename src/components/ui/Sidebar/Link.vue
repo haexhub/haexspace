@@ -1,12 +1,12 @@
 <template>
   <NuxtLinkLocale
     :to
-    class="flex items-center justify-center py-3 hover:text-primary cursor-pointer"
+    class="flex items-center justify-center py-3 hover:text-slate-200 cursor-pointer"
     v-tooltip="{
       content: label,
       placement: 'right',
     }"
-    activeClass="text-slate-900 bg-slate-200 "
+    activeClass="text-primary bg-slate-200 dark:bg-slate-700"
   >
     <i
       :class="icon"

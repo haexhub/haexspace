@@ -1,8 +1,8 @@
-import { useDirectusClient } from '~/server/utils/directus';
+//import { useDirectusClient } from '~/server/old_utils/directus';
 import { authentication } from '@directus/sdk';
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
+  /* const body = await readBody(event);
 
   const { setCookies, directus } = useDirectusClient();
 
@@ -17,5 +17,5 @@ export default defineEventHandler(async (event) => {
   } catch (error) {
     console.log('error login ', error);
     return false;
-  }
+  } */
 });

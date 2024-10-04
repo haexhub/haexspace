@@ -1,5 +1,5 @@
 import { DirectusUser } from '@directus/sdk';
-import { useDirectusUser } from '~/server/utils/directus/user';
+//import { useDirectusUser } from '~/server/old_utils/directus/user';
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
@@ -8,7 +8,7 @@ interface IRequestBody {
   user: PartialBy<DirectusUser, 'tfa_secret'>;
 }
 export default defineEventHandler(async (event) => {
-  try {
+  /* try {
     const { user } = await readBody<IRequestBody>(event);
 
     const { updateCurrentUserAsync } = useDirectusUser();
@@ -18,5 +18,5 @@ export default defineEventHandler(async (event) => {
     return user;
   } catch (error) {
     console.log('ERROR update user', error);
-  }
+  } */
 });

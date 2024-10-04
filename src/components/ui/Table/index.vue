@@ -19,6 +19,7 @@
             ref="row"
             :item
             v-model="selectedItems"
+            @dblclick="onDbClick(item)"
           >
             <UiTableItem v-for="column in columns">
               {{
@@ -54,4 +55,9 @@ const row = ref<HTMLElement | null>(null);
 const { selectedItems } = useTable();
 
 onClickOutside(table, (event) => (selectedItems.value = []));
+
+const onDbClick = (item: Record<string, unknown>) => {
+  const localeRoute = useLocaleRoute();
+  console.log('dbclick', item);
+};
 </script>

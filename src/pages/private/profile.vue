@@ -4,13 +4,13 @@
       <div class="flex justify-end h-full items-center space-x-2 w-full px-4">
         <UiButton
           @click="onUpdate"
-          icon="i-[ph--check-bold] size-6 mt-1.5"
-          className="rounded-full bg-primary size-12 shadow-md hover:ring-2 hover:bg-primary-hover"
+          icon="i-[ph--check-bold] size-6 "
+          class="rounded-full bg-primary text-slate-200 size-12 shadow-md hover:ring-2 hover:bg-primary-hover"
         ></UiButton>
 
         <UiButton
-          icon="i-[ph--trash] size-6 mt-1.5 "
-          className="rounded-full bg-primary size-12 shadow-md hover:ring-2 hover:bg-primary-hover "
+          icon="i-[ph--trash] size-6"
+          class="rounded-full bg-primary text-slate-200 size-12 shadow-md hover:ring-2 hover:bg-primary-hover"
         ></UiButton>
       </div>
     </template>
@@ -61,7 +61,6 @@
 </template>
 
 <script setup lang="ts">
-import type { DirectusUser } from '~/stores/directus/types';
 definePageMeta({
   name: 'profile',
 });
@@ -73,7 +72,7 @@ const onUpdate = async () => {
   //if (user.value) await updateCurrentUserAsync(user.value);
 };
 
-const response = await useAsyncData('user', () => getCurrentUserAsync());
+const response = await useAsyncData('profile', () => getCurrentUserAsync());
 const user = toRaw(response.data);
 </script>
 

@@ -1,14 +1,16 @@
 <template>
-  <div>
-    <UiTable
-      :items="displayFiles"
-      :columns="columns"
-    >
-    </UiTable>
-  </div>
+  <UiTable
+    :items="displayFiles"
+    :columns="columns"
+  >
+  </UiTable>
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  name: 'file',
+});
+
 const { displayFiles } = storeToRefs(useFileStore());
 
 const { readFilesAsync, columns } = useFileStore();

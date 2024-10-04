@@ -1,7 +1,5 @@
 <template>
   <tr
-    @click.exact="onSelect"
-    @click.ctrl.exact="onSelectMultiple"
     :class="[
       isSelected
         ? 'bg-slate-200 dark:bg-slate-500/40 ring-1 ring-primary'
@@ -21,6 +19,7 @@ const props = defineProps({
     type: Object as PropType<Record<string, any>>,
     default: () => {},
   },
+  isSelected: Boolean,
 });
 
 const selectedItems = defineModel({
@@ -28,27 +27,11 @@ const selectedItems = defineModel({
   default: () => [],
 });
 
-const isSelected = computed(() => selectedItems.value?.includes(props.item));
-
-const onSelect = () => {
-  if (isSelected.value) {
-    selectedItems.value = [];
-  } else {
-    selectedItems.value = [props.item];
-  }
-};
-
-const onSelectMultiple = () => {
-  if (isSelected.value) {
-    selectedItems.value = selectedItems.value.filter(
-      (selectedItem) => selectedItem !== props.item
-    );
-  } else {
-    selectedItems.value = [...selectedItems.value, props.item];
-  }
-};
-
 const onDrag = (e: Event) => {
   console.log('drag', e);
+};
+
+const onDelete = () => {
+  console.log('remove', props.item);
 };
 </script>

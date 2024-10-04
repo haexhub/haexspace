@@ -1,6 +1,6 @@
-export default defineNuxtRouteMiddleware(async (to, _from) => {
-  console.log('going to', to.meta.name);
+export default defineNuxtRouteMiddleware(async (to, from) => {
+  //console.log('going to', to.meta.name);
   const localeRoute = useLocaleRoute();
-  if (to.meta.name === 'files')
-    return navigateTo(localeRoute({ name: 'allFiles' }));
+  //if (to.meta.name === 'files' && from.meta.name !== 'filesAll')
+  //return navigateTo(localeRoute({ name: 'filesAll' }));
 });

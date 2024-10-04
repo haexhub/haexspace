@@ -1,15 +1,18 @@
 <template>
   <section
-    class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-gray-400 w-full min-w-[360px] relative h-full overflow-hidden min"
+    class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-gray-400 w-full min-w-[360px] relative h-full overflow-hidden"
   >
     <div
       v-if="$slots.header"
-      class="h-16 sticky top-0 z-20 bg-slate-100 dark:bg-slate-950"
+      class="h-16 sticky top-0 z-20 bg-slate-100 dark:bg-slate-900 shadow"
     >
       <slot name="header" />
     </div>
 
-    <div class="relative overflow-scroll h-full">
+    <div
+      class="relative overflow-scroll h-full"
+      :class="{ 'pb-16': $slots.header }"
+    >
       <slot />
     </div>
   </section>

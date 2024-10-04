@@ -1,7 +1,10 @@
 <template>
   <ContextMenuRoot>
-    <ContextMenuTrigger as-child>
-      <slot />
+    <ContextMenuTrigger
+      as-child
+      ref="trigger"
+    >
+      <slot ref="slot" />
     </ContextMenuTrigger>
 
     <ContextMenuPortal>
@@ -23,6 +26,7 @@
 <script setup lang="ts">
 import { any } from 'zod';
 import type { IContextMenuItem } from './types';
+import type { ContextMenuTrigger } from 'radix-vue';
 
 defineProps({
   menu: {
@@ -33,4 +37,16 @@ defineProps({
     type: any,
   },
 });
+
+const open = defineModel('open', { type: Boolean });
+
+const trigger = ref<typeof ContextMenuTrigger>();
+const slot = ref();
+trigger.value?.current.dispatchEvent(
+  new MouseEvent('contextmenu', {
+    bubbles: true,
+    clientX: slot.value.current.getBoundingClientRect().x,
+    clientY: slot.value.current.getBoundingClientRect().y,
+  })
+);
 </script>

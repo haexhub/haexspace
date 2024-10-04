@@ -1,9 +1,0 @@
-{
-  "files": {
-    "table": {
-      "name": "Name",
-      "size": "Size",
-      "modified_at": "Last modified"
-    }
-  }
-}

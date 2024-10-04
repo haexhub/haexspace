@@ -38,7 +38,7 @@ export default defineNuxtConfig({
   image: {},
 
   imports: {
-    dirs: ['composables/**', 'stores/**', 'components/**'],
+    dirs: ['composables/**', 'stores/**', 'components/**', 'pages/**'],
     //autoImport: true,
     presets: [
       {
@@ -52,6 +52,7 @@ export default defineNuxtConfig({
         ],
       },
       { from: 'radix-vue', imports: ['FlattenedItem'] },
+      //{ from: 'zod', imports: ['ZodType', 'ZodTypeDef'] },
     ],
   },
 
@@ -114,6 +115,9 @@ export default defineNuxtConfig({
         port: Number.parseInt(process.env.PORT ?? '3333'),
       },
     },
+    /* optimizeDeps: {
+      exclude: ['vee-validate'],
+    }, */
   },
 
   snackbar: {
