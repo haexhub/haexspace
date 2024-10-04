@@ -38,7 +38,7 @@
 
       <div
         v-if="$slots.append || appendIcon"
-        class="flex items-center text-slate-800 dark:text-slate-200 px-2 bg-slate-200 dark:bg-slate-800 border-y border-r border-slate-500 dark:border-slate-600 rounded-r-lg"
+        class="flex items-center text-slate-800 dark:text-slate-200 px-2 bg-slate-200 dark:bg-slate-700 border-y border-r border-slate-500 dark:border-slate-600 rounded-r-lg"
       >
         <slot
           name="append"

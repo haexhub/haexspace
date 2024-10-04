@@ -26,12 +26,19 @@
           @click.exact="onSelect(item)"
           @click.ctrl.exact="onSelectMultiple(item)"
         >
-          <UiTableItem v-for="column in columns">
-            {{
-              column.formatter
-                ? column.formatter(item?.[column.prop])
-                : item?.[column.prop]
-            }}
+          <UiTableItem v-for="(column, index) in columns">
+            <span class="flex items-center">
+              <UiIcon
+                v-if="index === 0"
+                :icon="getItemIcon(item)"
+                class="size-4 shrink-0 mr-1 text-orange-300"
+              />
+              {{
+                column.formatter
+                  ? column.formatter(item?.[column.prop])
+                  : item?.[column.prop]
+              }}
+            </span>
           </UiTableItem>
         </UiTableRow>
       </tbody>
@@ -40,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ITableFile, ITableFileColumn } from './table';
+import { type ITableFile, type ITableFileColumn } from './table';
 
 defineProps({
   items: {
@@ -59,7 +66,7 @@ onClickOutside(table, (event) => (selectedItems.value = []));
 const onDbClick = async (item: ITableFile) => {
   const localeRoute = useLocaleRoute();
   console.log('dbclick', item);
-  if (item.isDirectory)
+  if (item.type === 'folder')
     await navigateTo(localeRoute({ name: 'folders', params: { id: item.id } }));
 };
 
@@ -122,6 +129,25 @@ const contextMenu = [
     handler: () => {},
   },
 ];
+
+const getItemIcon = (item: ITableFile) => {
+  const type = item.type;
+  if (type) {
+    return itemIcons?.[type];
+  }
+};
+
+const itemIcons = {
+  'application/pdf': 'i-[ph--file-pdf]',
+  'application/x-cd-image': 'i-[carbon--iso]',
+  'folder': 'i-[ph--folder-notch-duotone]',
+  'image/jpeg': 'i-[ph--file-jpg]',
+  'image/jpg': 'i-[ph--file-jpg]',
+  'image/png': 'i-[ph--file-png]',
+  'image/svg+xml': 'i-[ph--file-svg]',
+  'text/html': 'i-[ph--file-html]',
+  'text/xml': 'i-[tabler--file-type-xml]',
+} as const;
 </script>
 
 <i18n lang="json">

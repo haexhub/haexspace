@@ -82,23 +82,33 @@ const { loginAsync } = useUserStore();
 const snackbar = useSnackbar();
 const localeRoute = useLocaleRoute();
 
-const { execute, error, data } = await useAsyncData(
+const { execute, error, data, status } = await useAsyncData(
+  'login',
   () => loginAsync(username.value, password.value),
   { immediate: false }
 );
 
 const onLogin = async () => {
   try {
+    //const { auth, token } = storeToRefs(useDirectusStore());
+    //token.value = await auth.value.login(username.value, password.value);
+
     await execute();
 
-    if (error.value)
-      snackbar.add({ type: 'error', text: JSON.stringify(error) });
-
-    show.value = true;
-    await navigateTo(localeRoute({ name: 'profile' }));
+    if (error.value) {
+      snackbar.add({
+        type: 'error',
+        text: JSON.stringify(error.value.message),
+      });
+      console.log('ERROR onLogin ee', error.value, status.value);
+    } else {
+      console.log('all right', data.value);
+      show.value = true;
+      await navigateTo(localeRoute({ name: 'profile' }));
+    }
   } catch (e) {
-    snackbar.add({ type: 'error', text: JSON.stringify(error) });
-    console.log('ERROR onLogin', error);
+    snackbar.add({ type: 'error', text: JSON.stringify(error.value) });
+    console.log('ERROR onLogin', e);
   }
 };
 

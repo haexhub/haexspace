@@ -9,7 +9,9 @@
       @toggle="
         (event) => {
           event.preventDefault();
-          $emit('select', item._id);
+          navigateTo(
+            useLocaleRoute()({ name: 'folders', params: { id: item._id } })
+          );
         }
       "
     >
@@ -33,12 +35,9 @@
         class="size-6 shrink-0 bg-primary"
       />
 
-      <NuxtLinkLocale
-        :to="{ name: 'folders', params: { id: item._id } }"
-        class="pl-2 text-nowrap w-full"
-      >
+      <p class="pl-2 text-nowrap w-full">
         {{ item.value.name }}
-      </NuxtLinkLocale>
+      </p>
     </TreeItem>
   </UiContextMenu>
 </template>

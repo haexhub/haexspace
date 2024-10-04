@@ -131,11 +131,13 @@ const uploadFilesAsync = async (files?: FileList | null) => {
   }
 };
 
-const filesToTable = (files: DirectusFile[]): ITableFile[] =>
-  files.map((file) => ({
+const filesToTable = (files: DirectusFile[]): ITableFile[] => {
+  console.log('files', files);
+  return files.map((file) => ({
     id: file.id,
     name: file.filename_download,
     size: file.filesize,
     modified: file.modified_on,
-    isDirectory: !!file.folder,
+    type: file.type,
   }));
+};

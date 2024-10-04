@@ -143,11 +143,12 @@ const createFolderTree = (
 
 const foldersToTable = (folders: DirectusFolder[]): ITableFile[] =>
   folders.map((folder) => ({
+    folder: folder.parent,
     id: folder.id,
+    modified: null,
     name: folder.name,
     size: 'N/A',
-    modified: null,
-    isDirectory: true,
+    type: 'folder',
   }));
 
 const moveFolderToTrash = () => {};

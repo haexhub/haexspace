@@ -47,11 +47,10 @@ const contextMenu: IContextMenuItem[] = [
 ];
 
 const { data } = await useAsyncData(
-  `syncFolderContents`,
+  `syncFolderContents:${currentFolderId.value}`,
   () => getFolderContentAsync(),
   {
     watch: [currentFolderId],
-    //server: false,
   }
 );
 
@@ -59,7 +58,6 @@ const trigger = ref<HTMLButtonElement>();
 const onRightClick = () => {
   console.log('righjt lcik', trigger.value);
   showContextMenu.value = true;
-  //trigger.value?.cl;
 };
 </script>
 

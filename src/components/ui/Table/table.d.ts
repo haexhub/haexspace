@@ -17,5 +17,5 @@ export interface ITableFile {
   name: string;
   size?: string | null;
   modified: string | null;
-  isDirectory: boolean;
+  type?: string | null;
 }

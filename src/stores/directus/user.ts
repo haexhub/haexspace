@@ -1,5 +1,10 @@
 import { type AuthenticationData, type DirectusUser } from '@directus/sdk';
-
+import {
+  isDirectusError,
+  InvalidCredentialsError,
+  type DirectusError,
+} from '@directus/errors';
+import { unknown } from 'zod';
 export const useUserStore = defineStore('userStore', () => {
   const currentUser = ref<DirectusUser | null>(null);
   const errors = ref<unknown[]>([]);
@@ -17,10 +22,20 @@ export const useUserStore = defineStore('userStore', () => {
 });
 
 const loginAsync = async (email: string, password: string) => {
-  const { auth, token } = storeToRefs(useDirectusStore());
-  token.value = await auth.value.login(email, password);
-  //setAuthCookies(token);
-  return token;
+  try {
+    console.log('login');
+    const { auth, token } = storeToRefs(useDirectusStore());
+    token.value = await auth.value.login(email, password);
+    console.log('store login', token.value);
+    //setAuthCookies(token);
+    return token.value;
+  } catch (error) {
+    throw createError({
+      message: (error as any).errors
+        .map((error: DirectusError) => error.message)
+        .join('. '),
+    });
+  }
 };
 
 const logoutAsync = async () => {
