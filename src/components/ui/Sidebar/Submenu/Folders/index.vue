@@ -69,10 +69,9 @@ const contextMenu: IContextMenuItem[] = [
 
   "en": {
     "allFiles": "All Files",
-    "menu": {
-      "folder": {
-        "create": "Create Folder"
-      }
+
+    "folder": {
+      "create": "Create Folder"
     }
   }
 }

@@ -69,6 +69,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vueuse/nuxt',
     'floating-vue/nuxt',
+    'nuxt-security',
     'nuxt-snackbar',
     'pinia-plugin-persistedstate/nuxt',
     'radix-vue/nuxt',
@@ -91,6 +92,12 @@ export default defineNuxtConfig({
         access_token_cookie_name: 'access_token',
         refresh_token_cookie_name: 'refresh_token',
       },
+    },
+  },
+
+  security: {
+    headers: {
+      crossOriginResourcePolicy: 'same-site',
     },
   },
 
