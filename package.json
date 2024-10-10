@@ -1,5 +1,5 @@
 {
-  "name": "baasinga",
+  "name": "haexspace",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,13 +8,12 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "tauri": "tauri",
-    "introspect-drizzle": "drizzle-kit introspect:pg"
+    "tauri": "tauri"
   },
   "dependencies": {
     "@directus/errors": "^1.0.0",
-    "@directus/sdk": "^17.0.1",
-    "@nuxt/image": "^1.8.0",
+    "@directus/sdk": "^17.0.2",
+    "@nuxt/image": "^1.8.1",
     "@nuxtjs/i18n": "^8.5.5",
     "@pinia/nuxt": "^0.5.5",
     "@tauri-apps/api": "2.0.0-rc.4",
@@ -27,14 +26,14 @@
     "nuxt": "^3.13.2",
     "nuxt-snackbar": "^1.1.2",
     "pg": "^8.13.0",
-    "pinia-plugin-persistedstate": "^4.0.2",
-    "radix-vue": "^1.9.6",
+    "pinia-plugin-persistedstate": "^4.1.1",
+    "radix-vue": "^1.9.7",
     "vue-draggable-plus": "^0.5.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@egoist/tailwindcss-icons": "^1.8.1",
-    "@iconify/json": "^2.2.255",
+    "@iconify/json": "^2.2.258",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@tauri-apps/cli": "2.0.0-rc.16",
     "@types/pg": "^8.11.10",

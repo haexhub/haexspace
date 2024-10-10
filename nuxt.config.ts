@@ -39,7 +39,9 @@ export default defineNuxtConfig({
     },
   },
 
-  image: {},
+  image: {
+    format: ['avif', 'webp'],
+  },
 
   imports: {
     dirs: ['composables/**', 'stores/**', 'components/**', 'pages/**'],

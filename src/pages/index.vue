@@ -12,6 +12,11 @@
       <UiInput v-model="token" />
       <UiButton @click="onClick">Refresh</UiButton>
       <UiButton @click="onTest">Set Cookie</UiButton>
+      <NuxtImg
+        src="/logo.svg"
+        class="bg-primary p-3 size-16"
+        placeholder
+      />
     </UiCard>
     <div class="p-16">
       <div class="test resize bg-purple-400 border-8 size-32 overflow-hidden">

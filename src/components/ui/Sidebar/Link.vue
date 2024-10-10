@@ -1,7 +1,7 @@
 <template>
   <NuxtLinkLocale
     :to
-    class="flex items-center justify-center py-3 hover:text-slate-200 cursor-pointer"
+    class="flex items-center justify-center py-3 hover:text-primary cursor-pointer"
     v-tooltip="{
       content: label,
       placement: 'right',

@@ -8,6 +8,7 @@
       <NuxtImg
         src="/logo.svg"
         class="bg-primary p-3 size-16"
+        placeholder
       />
 
       <div class="flex flex-col justify-between h-full">
@@ -39,7 +40,7 @@
         <span
           class="px-4 font-semibold text-slate-800 dark:text-slate-200 shrink-0"
         >
-          Haex Cloud
+          Haex Space
         </span>
         <UiButton
           class="size-10 sm:hidden ml-auto border-0 bg-primary hover:bg-primary-hover m-2"
@@ -70,8 +71,6 @@ defineProps({
 });
 
 const { show } = storeToRefs(useSidebar());
-
-const site = computed(() => useRoute());
 
 const sidebar = ref<HTMLElement | null>(null);
 onClickOutside(sidebar, (event) => (show.value = false));
