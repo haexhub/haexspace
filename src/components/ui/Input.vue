@@ -56,7 +56,7 @@
       v-show="errors"
       class="text-sm text-red-600 flex flex-col"
     >
-      <p v-for="error in errors">{{ error }}</p>
+      <!-- <p v-for="error in errors">{{ error }}</p> -->
     </span>
   </fieldset>
 </template>
