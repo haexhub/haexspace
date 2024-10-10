@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss';
 import { iconsPlugin, dynamicIconsPlugin } from '@egoist/tailwindcss-icons';
 import colors from 'tailwindcss/colors';
 
-export default <Partial<Config>>{
+export default {
   content: ['./src/**/*.{js,vue,ts}'],
   darkMode: 'selector',
   plugins: [
@@ -53,4 +53,4 @@ export default <Partial<Config>>{
       },
     },
   },
-};
+} satisfies Config;

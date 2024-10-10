@@ -9,9 +9,7 @@
         <UiButton
           @click="toogleSidebar"
           v-tooltip="{
-            content: settings.collapsed
-              ? t('sidebar.open')
-              : t('sidebar.close'),
+            content: show ? t('sidebar.open') : t('sidebar.close'),
           }"
           class="p-2"
           icon="i-[ph--sidebar-simple] text-slate-50 p-2"
@@ -54,7 +52,7 @@ const toggleNavbar = () => {
   showMenu.value = !showMenu.value;
 };
 
-const { toogleSidebar, settings } = useSidebar();
+const { toogleSidebar, show } = useSidebar();
 const { t } = useI18n();
 </script>
 

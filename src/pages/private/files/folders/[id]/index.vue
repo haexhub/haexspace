@@ -18,7 +18,7 @@ definePageMeta({
 const showDialog = ref(false);
 const showContextMenu = ref(true);
 
-const { currentFolderId } = storeToRefs(useFolderStore());
+const { currentFolderId, allFolders } = storeToRefs(useFolderStore());
 const { getFolderContentAsync } = useFolderStore();
 
 const { t } = useI18n();
@@ -50,7 +50,7 @@ const { data } = await useAsyncData(
   `syncFolderContents:${currentFolderId.value}`,
   () => getFolderContentAsync(),
   {
-    watch: [currentFolderId],
+    watch: [currentFolderId, allFolders],
   }
 );
 

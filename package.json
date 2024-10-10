@@ -8,7 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "introspect-drizzle": "drizzle-kit introspect:pg"
   },
   "dependencies": {
     "@directus/errors": "^1.0.0",
@@ -25,6 +26,7 @@
     "floating-vue": "^5.2.2",
     "nuxt": "^3.13.2",
     "nuxt-snackbar": "^1.1.2",
+    "pg": "^8.13.0",
     "pinia-plugin-persistedstate": "^4.0.2",
     "radix-vue": "^1.9.6",
     "vue-draggable-plus": "^0.5.3",
@@ -35,6 +37,7 @@
     "@iconify/json": "^2.2.255",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@tauri-apps/cli": "2.0.0-rc.16",
+    "@types/pg": "^8.11.10",
     "postcss-custom-properties": "^13.3.12",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.13"

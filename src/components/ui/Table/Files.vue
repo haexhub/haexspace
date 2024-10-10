@@ -16,31 +16,35 @@
       </thead>
 
       <tbody class="">
-        <UiTableRow
+        <UiContextMenu
+          :menu="contextMenu"
           v-for="item in items"
-          ref="row"
-          :item
-          :is-selected="isSelected(item)"
-          v-model="selectedItems"
-          @dblclick="onDbClick(item)"
-          @click.exact="onSelect(item)"
-          @click.ctrl.exact="onSelectMultiple(item)"
         >
-          <UiTableItem v-for="(column, index) in columns">
-            <span class="flex items-center">
-              <UiIcon
-                v-if="index === 0"
-                :icon="getItemIcon(item)"
-                class="size-4 shrink-0 mr-1 text-orange-300"
-              />
-              {{
-                column.formatter
-                  ? column.formatter(item?.[column.prop])
-                  : item?.[column.prop]
-              }}
-            </span>
-          </UiTableItem>
-        </UiTableRow>
+          <UiTableRow
+            ref="row"
+            :item
+            :is-selected="isSelected(item)"
+            v-model="selectedItems"
+            @dblclick="onDbClick(item)"
+            @click.exact="onSelect(item)"
+            @click.ctrl.exact="onSelectMultiple(item)"
+          >
+            <UiTableItem v-for="(column, index) in columns">
+              <span class="flex items-center">
+                <UiIcon
+                  v-if="index === 0"
+                  :icon="getItemIcon(item)"
+                  class="size-4 shrink-0 mr-1 text-orange-300"
+                />
+                {{
+                  column.formatter
+                    ? column.formatter(item?.[column.prop])
+                    : item?.[column.prop]
+                }}
+              </span>
+            </UiTableItem>
+          </UiTableRow>
+        </UiContextMenu>
       </tbody>
     </table>
   </div>
@@ -132,22 +136,26 @@ const contextMenu = [
 
 const getItemIcon = (item: ITableFile) => {
   const type = item.type;
-  if (type) {
-    return itemIcons?.[type];
+  if (type && itemIcons.has(type)) {
+    return itemIcons.get(type);
   }
+  return itemIcons.get('file');
 };
 
-const itemIcons = {
-  'application/pdf': 'i-[ph--file-pdf]',
-  'application/x-cd-image': 'i-[carbon--iso]',
-  'folder': 'i-[ph--folder-notch-duotone]',
-  'image/jpeg': 'i-[ph--file-jpg]',
-  'image/jpg': 'i-[ph--file-jpg]',
-  'image/png': 'i-[ph--file-png]',
-  'image/svg+xml': 'i-[ph--file-svg]',
-  'text/html': 'i-[ph--file-html]',
-  'text/xml': 'i-[tabler--file-type-xml]',
-} as const;
+const itemIcons = new Map([
+  ['application/pdf', 'i-[ph--file-pdf]'],
+  ['application/x-cd-image', 'i-[carbon--iso]'],
+  ['folder', 'i-[ph--folder-notch-duotone]'],
+  ['image/jpeg', 'i-[ph--file-jpg]'],
+  ['image/jpg', 'i-[ph--file-jpg]'],
+  ['image/png', 'i-[ph--file-png]'],
+  ['image/svg+xml', 'i-[ph--file-svg]'],
+  ['text/html', 'i-[ph--file-html]'],
+  ['text/css', 'i-[ph--file-css-duotone]'],
+  ['text/md', 'i-[ph--file-md]'],
+  ['text/xml', 'i-[tabler--file-type-xml]'],
+  ['file', 'i-[ph--file-duotone]'],
+]);
 </script>
 
 <i18n lang="json">

@@ -1,4 +1,8 @@
-import { type AuthenticationData, type DirectusUser } from '@directus/sdk';
+import {
+  logout,
+  type AuthenticationData,
+  type DirectusUser,
+} from '@directus/sdk';
 import {
   isDirectusError,
   InvalidCredentialsError,
@@ -39,8 +43,11 @@ const loginAsync = async (email: string, password: string) => {
 };
 
 const logoutAsync = async () => {
-  const { auth } = storeToRefs(useDirectusStore());
-  return auth.value.logout();
+  const { auth, token } = storeToRefs(useDirectusStore());
+  if (token.value?.refresh_token) {
+    await auth.value.request(logout(token.value?.refresh_token, 'json'));
+    await navigateTo(useLocaleRoute()({ name: 'home' }));
+  }
 };
 
 const getCurrentUserAsync = async (): Promise<DirectusUser | null> => {

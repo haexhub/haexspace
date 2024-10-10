@@ -47,7 +47,7 @@ export const useFolderStore = defineStore('folderStore', () => {
 
   const getFolderContentAsync = async () => {
     const { filesToTable, readFilesAsync } = useFileStore();
-    console.log('getFolderContentAsync', currentFolderId.value);
+    //console.log('getFolderContentAsync', currentFolderId.value);
     const files = currentFolderId.value
       ? await readFilesAsync({
           filter: { folder: { _eq: currentFolderId.value } },

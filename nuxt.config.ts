@@ -9,6 +9,10 @@ export default defineNuxtConfig({
           name: 'description',
           content: 'Use your own private cloud',
         },
+        {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1',
+        },
       ],
     },
   },

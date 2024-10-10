@@ -54,13 +54,12 @@ import * as zod from 'zod';
 
 const show = defineModel({ type: Boolean, default: true });
 const errors = ref([]);
+const folderName = ref('');
 
 const { add } = useSnackbar();
-const { createFolderAsync, syncFoldersAsync, readAllFoldersAsync } =
-  useFolderStore();
+const { createFolderAsync, readAllFoldersAsync } = useFolderStore();
 const { currentFolderId } = storeToRefs(useFolderStore());
 const { t } = useI18n();
-const folderName = ref('');
 
 const onCreateFolderAsync = async () => {
   try {
