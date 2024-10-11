@@ -10,7 +10,7 @@
     </div>
 
     <div
-      class="relative overflow-scroll h-full"
+      class="relative overflow-auto h-full"
       :class="{ 'pb-16': $slots.header }"
     >
       <slot />

@@ -114,7 +114,7 @@ export default defineNuxtConfig({
     },
   },
 
-  ssr: false,
+  //ssr: false,
   // Enables the development server to be discoverable by other devices for mobile development
   devServer: {
     host: '0.0.0.0',
