@@ -34,6 +34,7 @@
         :placeholder
         class="w-full bg-slate-100 bg-opacity-20 focus:bg-opacity-10 focus:ring-2 focus:ring-primary-hover focus:border-primary-active border-slate-600 transition-colors duration-200 ease-in-out text-base outline-none py-2 px-3 leading-8 border z-10 dark:text-slate-200"
         v-model="input"
+        v-bind="$attrs"
       />
 
       <div
@@ -56,7 +57,7 @@
       v-show="errors"
       class="text-sm text-red-600 flex flex-col"
     >
-      <!-- <p v-for="error in errors">{{ error }}</p> -->
+      <p v-for="error in errors">{{ error }}</p>
     </span>
   </fieldset>
 </template>

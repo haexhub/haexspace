@@ -11,9 +11,7 @@
           quality="80"
           alt="squirel"
         />
-        <span class="w-40">
-          {{ config.public.directus }}
-        </span>
+
         <form
           class="p-4 flex flex-col md:mx-4 xl:mx-auto w-full md:w-1/2 xl:w-1/3 bg-slate-100 dark:bg-slate-800 rounded-lg space-y-6 shadow-md dark:shadow-slate-900"
         >
