@@ -88,7 +88,7 @@ export default defineNuxtConfig({
     app: {},
     public: {
       directus: {
-        url: 'http://0.0.0.0:8055',
+        url: process.env.DIRECTUS_URL ?? 'http://0.0.0.0:8055',
         access_token_cookie_name: 'access_token',
         refresh_token_cookie_name: 'refresh_token',
       },
@@ -97,7 +97,18 @@ export default defineNuxtConfig({
 
   security: {
     headers: {
-      crossOriginResourcePolicy: 'cross-origin',
+      crossOriginEmbedderPolicy: 'unsafe-none',
+      contentSecurityPolicy: {
+        'img-src': ["'self'", 'data:'],
+        'script-src': [
+          "'self'",
+          'https:',
+          "'unsafe-inline'",
+          "'strict-dynamic'",
+          "'nonce-{{nonce}}'",
+          "'unsafe-eval'",
+        ],
+      },
     },
   },
 
@@ -106,6 +117,11 @@ export default defineNuxtConfig({
   devServer: {
     host: '0.0.0.0',
     port: Number.parseInt(process.env.PORT ?? '3333'),
+  },
+
+  nitro: {
+    compressPublicAssets: true,
+    minify: true,
   },
 
   vite: {

@@ -27,6 +27,8 @@ export const useDirectusStore = defineStore(
     };
   },
   {
-    persist: true,
+    persist: {
+      storage: piniaPluginPersistedstate.cookies({ sameSite: 'strict' }),
+    },
   }
 );

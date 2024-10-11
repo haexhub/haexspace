@@ -6,6 +6,10 @@
           class="object-cover object-center hidden md:block w-1/2 rounded-l h-full"
           src="/squirel_challenge.jpg"
           placeholder
+          loading="lazy"
+          format="webp"
+          quality="80"
+          alt="squirel"
         />
 
         <form
@@ -36,6 +40,7 @@
             <template #append>
               <UiButton
                 class="flex p-0"
+                aria-label="toogle visibility of password"
                 @click.prevent="password.show = !password.show"
                 :icon="
                   password.show

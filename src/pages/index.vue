@@ -9,7 +9,6 @@
       </div>
     </template>
     <UiCard>
-      <UiInput v-model="token" />
       <UiButton @click="onClick">Refresh</UiButton>
       <UiButton @click="onTest">Set Cookie</UiButton>
       <NuxtImg
@@ -49,12 +48,6 @@ const onTest = () => {
     secure: false,
   });
   test.value = 'fooooooo';
-  //refreshCookie(names.access_token_cookie_name);
-  /* setAuthCookies({
-    access_token: 'foo',
-    refresh_token: 'bar',
-    expires: 900000,
-  }); */
 };
 </script>
 
