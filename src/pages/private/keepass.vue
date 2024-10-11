@@ -1,6 +1,12 @@
 <template>
   <UiPage>
-    {{ token }}
+    <span>
+      {{ token }}
+    </span>
+
+    <div>
+      {{ folderTree }}
+    </div>
   </UiPage>
 </template>
 

@@ -20,10 +20,12 @@ export const useDirectusStore = defineStore(
     const ws = computed(() => auth.value.with(realtime()));
     const token = ref<AuthenticationData | null>(null);
 
+    const errors = ref();
     return {
       auth,
       token,
       ws,
+      errors,
     };
   },
   {

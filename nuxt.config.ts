@@ -146,9 +146,6 @@ export default defineNuxtConfig({
         port: Number.parseInt(process.env.PORT ?? '3333'),
       },
     },
-    /* optimizeDeps: {
-      exclude: ['vee-validate'],
-    }, */
   },
 
   snackbar: {

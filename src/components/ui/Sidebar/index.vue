@@ -5,7 +5,7 @@
     ref="sidebar"
   >
     <div class="flex flex-col w-16 bg-slate-800 shrink-0">
-      <NuxtImg
+      <img
         src="/logo.svg"
         class="bg-primary p-3 size-16"
         placeholder
