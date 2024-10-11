@@ -26,6 +26,7 @@
             name="username"
             prepend-icon="i-[mdi--person-outline] p-3"
             type="text"
+            autocomplete="username"
           >
           </UiInput>
 
