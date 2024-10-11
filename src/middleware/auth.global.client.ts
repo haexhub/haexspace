@@ -6,7 +6,7 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
 
   const { auth, token } = storeToRefs(useDirectusStore());
   const localeRoute = useLocaleRoute();
-
+  console.log('middelware token', token.value);
   //console.log('middleware current refresh_token', token.value);
   if (token.value?.refresh_token) {
     try {
@@ -22,6 +22,6 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
     }
   } else {
     token.value = null;
-    return navigateTo(localeRoute({ name: 'login' }));
+    return navigateTo(localeRoute({ name: 'home' }));
   }
 });

@@ -108,7 +108,9 @@ export default defineNuxtConfig({
           "'nonce-{{nonce}}'",
           "'unsafe-eval'",
         ],
+        'upgrade-insecure-requests': false,
       },
+      strictTransportSecurity: false,
     },
   },
 

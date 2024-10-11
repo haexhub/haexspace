@@ -28,7 +28,7 @@ export const useDirectusStore = defineStore(
   },
   {
     persist: {
-      storage: piniaPluginPersistedstate.cookies({ sameSite: 'strict' }),
+      storage: piniaPluginPersistedstate.cookies({ sameSite: 'lax' }),
     },
   }
 );

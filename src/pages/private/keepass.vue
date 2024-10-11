@@ -1,6 +1,6 @@
 <template>
   <UiPage>
-    {{ folderTree }}
+    {{ token }}
   </UiPage>
 </template>
 
@@ -11,6 +11,7 @@ definePageMeta({
 
 const { readAllFoldersAsync } = useFolderStore();
 const { folderTree } = storeToRefs(useFolderStore());
+const { token } = storeToRefs(useDirectusStore());
 
 await useAsyncData(() => readAllFoldersAsync());
 </script>
