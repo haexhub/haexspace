@@ -14,7 +14,7 @@
       <UiSidebar :menu />
 
       <div
-        class="overflow-scroll h-svh w-svw sm:blur-none transition-all"
+        class="overflow-auto h-svh w-svw sm:blur-none transition-all"
         :class="{ 'blur-sm': show }"
       >
         <slot />
