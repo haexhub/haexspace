@@ -22,6 +22,7 @@
     }
   },
 
+  "plugins": {},
   "bundle": {
     "active": true,
     "linux": {

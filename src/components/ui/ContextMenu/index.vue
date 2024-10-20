@@ -34,7 +34,7 @@ defineProps({
     default: () => [],
   },
   context: {
-    type: any,
+    type: Object,
   },
 });
 
@@ -42,11 +42,11 @@ const open = defineModel('open', { type: Boolean });
 
 const trigger = ref<typeof ContextMenuTrigger>();
 const slot = ref();
-trigger.value?.current.dispatchEvent(
+/* trigger.value?.current.dispatchEvent(
   new MouseEvent('contextmenu', {
     bubbles: true,
     clientX: slot.value.current.getBoundingClientRect().x,
     clientY: slot.value.current.getBoundingClientRect().y,
   })
-);
+); */
 </script>

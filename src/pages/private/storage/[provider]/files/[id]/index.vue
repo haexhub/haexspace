@@ -1,9 +1,5 @@
 <template>
-  <UiTable
-    :items="displayFiles"
-    :columns="columns"
-  >
-  </UiTable>
+  <UiTable :items="displayFiles"> </UiTable>
 </template>
 
 <script setup lang="ts">
@@ -11,9 +7,9 @@ definePageMeta({
   name: 'file',
 });
 
-const { displayFiles } = storeToRefs(useFileStore());
+const { displayFiles } = storeToRefs(useDirectusFiles());
 
-const { readFilesAsync, columns } = useFileStore();
+const { readFilesAsync } = useDirectusFiles();
 
 const { refresh } = await useAsyncData(async () => {
   displayFiles.value = await readFilesAsync();

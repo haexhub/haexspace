@@ -39,9 +39,7 @@ export default defineNuxtConfig({
     },
   },
 
-  image: {
-    format: ['avif', 'webp'],
-  },
+  //image: {},
 
   imports: {
     dirs: ['composables/**', 'stores/**', 'components/**', 'pages/**'],
@@ -63,7 +61,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    '@nuxt/image',
+    //'@nuxt/image',
     '@nuxtjs/i18n',
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',

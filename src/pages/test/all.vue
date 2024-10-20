@@ -14,12 +14,12 @@ definePageMeta({
 });
 
 console.log('load allFiles');
-const { columns } = storeToRefs(useFileStore());
+const { columns } = storeToRefs(useDirectusFiles());
 
 const { auth } = storeToRefs(useDirectusStore());
-const { readFilesAsync } = useFileStore();
+const { readFilesAsync } = useDirectusFiles();
 
-//const { readFilesAsync } = useFileStore();
+//const { readFilesAsync } = useDirectusFiles();
 
 const { data } = await useAsyncData(() => readFilesAsync());
 //const items = data.value; */

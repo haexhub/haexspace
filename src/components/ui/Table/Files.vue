@@ -1,13 +1,13 @@
 <template>
   <div
-    class="rounded-lg shadow-md pb-16 h-full"
+    class="rounded-lg shadow-md pb-16 min-h-full"
     @keyup.delete="onDelete"
   >
     <table
       class="min-w-full text-left border-collapse"
       ref="table"
     >
-      <thead class="sticky top-0">
+      <thead class="sticky top-0 z-10">
         <UiTableColumns>
           <UiTableColumn v-for="column in columns">
             {{ column.label }}
@@ -19,6 +19,7 @@
         <UiContextMenu
           :menu="contextMenu"
           v-for="item in items"
+          :context="item"
         >
           <UiTableRow
             ref="row"
@@ -47,6 +48,8 @@
         </UiContextMenu>
       </tbody>
     </table>
+
+    <DialogFileDelete v-model="showDialog.file.delete" />
   </div>
 </template>
 
@@ -60,6 +63,11 @@ defineProps({
   },
 });
 
+const showDialog = reactive({
+  file: {
+    delete: false,
+  },
+});
 const table = ref<HTMLElement | null>(null);
 const row = ref<HTMLElement | null>(null);
 
@@ -67,11 +75,15 @@ const { selectedItems } = useTable();
 
 onClickOutside(table, (event) => (selectedItems.value = []));
 
+const { providerFunctions } = useStorageProvider();
 const onDbClick = async (item: ITableFile) => {
   const localeRoute = useLocaleRoute();
   console.log('dbclick', item);
-  if (item.type === 'folder')
-    await navigateTo(localeRoute({ name: 'folders', params: { id: item.id } }));
+  if (item.type === 'folder') {
+    await providerFunctions().navigateToDirectoryAsync(item);
+    //navigateToDirectoryAsync(currentStorageProvider.value?.slug);
+  }
+  //await navigateTo(localeRoute({ name: 'folders', params: { id: item.id } }));
 };
 
 const onDelete = () => {
@@ -111,6 +123,7 @@ const columns = computed<ITableFileColumn[]>(() => {
       label: t('column.size'),
       formatter: (item: string) => readableFileSize(item),
     },
+    { prop: 'type', label: t('column.type') },
     {
       prop: 'modified',
       label: t('column.modified_at'),
@@ -121,16 +134,23 @@ const columns = computed<ITableFileColumn[]>(() => {
             dateStyle: 'short',
           });
         }
-        return '';
+        return item;
       },
     },
   ];
 });
 
+const { deleteFileAsync } = useDirectusFiles();
 const contextMenu = [
   {
-    label: t('contextMenu.test'),
-    handler: () => {},
+    label: t('contextMenu.delete'),
+    handler: async (item: ITableFile) => {
+      if (item.type === 'folder') {
+      } else {
+        console.log('remove', item);
+        await deleteFileAsync(item.id);
+      }
+    },
   },
 ];
 
@@ -164,10 +184,11 @@ const itemIcons = new Map([
     "column": {
       "name": "Name",
       "size": "Größe",
-      "modified_at": "zuletzt geändert"
+      "modified_at": "zuletzt geändert",
+      "type": "Typ"
     },
     "contextMenu": {
-      "test": "huhu"
+      "delete": "Löschen"
     }
   },
 
@@ -175,7 +196,11 @@ const itemIcons = new Map([
     "column": {
       "name": "Name",
       "size": "Size",
-      "modified_at": "Last modified"
+      "modified_at": "Last modified",
+      "type": "Type"
+    },
+    "contextMenu": {
+      "delete": "Delete"
     }
   }
 }

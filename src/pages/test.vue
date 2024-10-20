@@ -17,7 +17,7 @@ const { isDark } = storeToRefs(useUi());
 const { t } = useI18n();
 const { getCurrentUserAsync } = useUserStore();
 
-//const { syncFoldersAsync } = useFolderStore();
+//const { syncFoldersAsync } = useDirectusFolders();
 </script>
 
 <i18n lang="json">

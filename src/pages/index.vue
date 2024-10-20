@@ -3,26 +3,28 @@
     <template #header>
       <div class="flex space-x-2">
         <NuxtLinkLocale :to="{ name: 'login' }">Login</NuxtLinkLocale>
-        <NuxtLinkLocale :to="{ name: 'files' }">Files</NuxtLinkLocale>
+        <NuxtLinkLocale
+          :to="{
+            name: 'folders',
+            params: { provider: lastStorageProvider.slug },
+          }"
+          >Files</NuxtLinkLocale
+        >
         <NuxtLinkLocale :to="{ name: 'test2' }">Test 2</NuxtLinkLocale>
         <NuxtLinkLocale :to="{ name: 'foo' }">Test</NuxtLinkLocale>
       </div>
     </template>
     <UiCard>
-      <UiButton @click="onClick">Refresh</UiButton>
-      <UiButton @click="onTest">Set Cookie</UiButton>
-      <NuxtImg
+      <img
         src="/logo.svg"
         class="bg-primary p-3 size-16"
         placeholder
       />
+      <span class="flex items-center gap-2">
+        <p>Hallo mein</p>
+        <i class="i-[game-icons--caterpillar] text-green-500 size-10"></i>
+      </span>
     </UiCard>
-    <div class="p-16">
-      <div class="test resize bg-purple-400 border-8 size-32 overflow-hidden">
-        aaa {{ token }} aaa
-      </div>
-      {{ test }}
-    </div>
   </UiPage>
 </template>
 
@@ -31,28 +33,5 @@ definePageMeta({
   name: 'home',
 });
 
-const token = ref();
-
-const test = useCookie('test', { sameSite: 'strict' });
-const names = useRuntimeConfig().public.directus;
-
-const { getAuthToken, setAuthCookies } = useUserStore();
-
-const onClick = () => {
-  token.value = useCookie(names.access_token_cookie_name).value; //getAuthToken().access_token;
-};
-
-const onTest = () => {
-  const test = useCookie(names.access_token_cookie_name, {
-    sameSite: 'strict',
-    secure: false,
-  });
-  test.value = 'fooooooo';
-};
+const { lastStorageProvider } = useStorageProvider();
 </script>
-
-<style>
-.test {
-  resize: both;
-}
-</style>

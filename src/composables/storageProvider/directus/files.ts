@@ -1,4 +1,5 @@
 import {
+  deleteFile,
   uploadFiles,
   type AssetsQuery,
   type DirectusFile,
@@ -6,38 +7,25 @@ import {
 } from '@directus/sdk';
 
 import type { Schema } from 'zod';
-import type { ITableFile } from '~/components/ui/Table/table';
 
-export const useFileStore = defineStore('fileStore', () => {
-  const displayFiles = ref<DirectusFile[]>([]);
-  const errors = ref<unknown[]>([]);
-
-  const syncFilesAsync = async (query?: Query<Schema, DirectusFile>) => {
-    try {
-      displayFiles.value = await readFilesAsync(query);
-      return displayFiles.value;
-    } catch (error) {}
-  };
-
+export const useDirectusFiles = () => {
   return {
-    displayFiles,
-    errors,
-    filesToTable,
+    deleteFileAsync,
     getImageAsync,
     getThumbnailAsync,
     readFilesAsync,
-    syncFilesAsync,
+    uploadFileAsync,
     uploadFilesAsync,
   };
-});
+};
 
 const readFileAsync = async (
   fileId: string,
   query?: Query<Schema, DirectusFile>
 ) => {
   try {
-    const { auth } = storeToRefs(useDirectusStore());
-    const file = await auth.value.request(readFile(fileId, query));
+    const { auth } = useDirectusStore();
+    const file = await auth.request(readFile(fileId, query));
     return file as DirectusFile;
   } catch (error) {
     console.log('ERROR readFilesAsync', error);
@@ -47,8 +35,8 @@ const readFileAsync = async (
 
 const readFilesAsync = async (query?: Query<Schema, DirectusFile>) => {
   try {
-    const { auth } = storeToRefs(useDirectusStore());
-    const files = await auth.value.request(readFiles(query));
+    const { auth } = useDirectusStore();
+    const files = await auth.request(readFiles(query));
     return files as DirectusFile[];
   } catch (error) {
     console.log('ERROR readFilesAsync', error);
@@ -60,10 +48,8 @@ const getThumbnailAsync = async (fileId: string) => {
   try {
     if (!fileId) return;
 
-    const { auth } = storeToRefs(useDirectusStore());
-    const stream = await auth.value.request(
-      readAssetRaw(fileId, { quality: 30 })
-    );
+    const { auth } = useDirectusStore();
+    const stream = await auth.request(readAssetRaw(fileId, { quality: 30 }));
     const reader = stream?.getReader();
     const data = await reader?.read();
 
@@ -89,8 +75,8 @@ const getThumbnailAsync = async (fileId: string) => {
 const getImageAsync = async (fileId: string, query?: AssetsQuery) => {
   try {
     if (!fileId) return;
-    const { auth } = storeToRefs(useDirectusStore());
-    const stream = await auth.value.request(readAssetRaw(fileId, query));
+    const { auth } = useDirectusStore();
+    const stream = await auth.request(readAssetRaw(fileId, query));
     const reader = stream?.getReader();
     const data = await reader?.read();
 
@@ -113,31 +99,43 @@ const getImageAsync = async (fileId: string, query?: AssetsQuery) => {
   }
 };
 
-const uploadFilesAsync = async (files?: FileList | null) => {
+const uploadFileAsync = async (file?: File | null, folderId?: string) => {
+  console.log('upload file', file, 'in folder', folderId);
+  if (!file) return;
+
+  const { auth } = useDirectusStore();
+
+  const formData = new FormData();
+
+  if (folderId) formData.append('folder', folderId);
+  formData.append('file', file, file.name);
+
+  const res = await auth.request(uploadFiles(formData));
+  console.log('finish upload ', res);
+};
+
+const uploadFilesAsync = async (files?: FileList | null, folderId?: string) => {
   console.log('uupload files', files);
   if (!files) return;
 
-  const { auth } = storeToRefs(useDirectusStore());
+  //const { auth } = storeToRefs(useDirectusStore());
 
   for (let index = 0; index < files.length; index++) {
-    const file = files.item(index);
+    await uploadFileAsync(files.item(index), folderId);
+    /* const file = files.item(index);
     if (!file) return;
     console.log('upload file', file);
     const formData = new FormData();
+
+    if (folderId) formData.append('folder', folderId);
     formData.append('file', file, file.name);
 
     const res = await auth.value.request(uploadFiles(formData));
-    console.log('finish upload ', res);
+    console.log('finish upload ', res); */
   }
 };
 
-const filesToTable = (files: DirectusFile[]): ITableFile[] => {
-  console.log('files', files);
-  return files.map((file) => ({
-    id: file.id,
-    name: file.filename_download,
-    size: file.filesize,
-    modified: file.modified_on,
-    type: file.type,
-  }));
+const deleteFileAsync = async (file_id: string) => {
+  const { auth } = useDirectusStore();
+  await auth.request(deleteFile(file_id));
 };

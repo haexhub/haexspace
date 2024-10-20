@@ -3,22 +3,11 @@
     <UiContextMenu :menu="contextMenu">
       <TreeRoot
         v-slot="{ flattenItems }"
-        class="list-none select-none min-w-full w-fit text-slate-800 dark:text-slate-200 rounded-lg p-2 text-sm font-medium flex flex-col min-h-[50%]"
-        :items="folderTree"
+        class="min-w-full w-fit text-slate-800 dark:text-slate-200 rounded-lg p-2 text-sm font-medium flex flex-col"
+        :items="data ?? []"
         :get-key="(item) => item.id"
         :default-expanded="breadCrumbs"
       >
-        <button
-          class="p-2 text-left rounded hover:bg-slate-300 dark:hover:bg-slate-600/60 flex items-center space-x-2"
-          @click="onAllFiles"
-        >
-          <UiIcon
-            class="size-6 bg-primary"
-            icon="i-[ph--files]"
-          />
-          <span> {{ t('allFiles') }} </span>
-        </button>
-
         <UiSidebarSubmenuFoldersItem
           v-for="item in flattenItems"
           :key="item._id"
@@ -35,14 +24,19 @@
 import type { IContextMenuItem } from '~/components/ui/ContextMenu/types';
 const { t } = useI18n();
 
-const { folderTree, breadCrumbs } = storeToRefs(useFolderStore());
-const { readAllFoldersAsync } = useFolderStore();
+const { breadCrumbs } = useDirectusFolders();
+const {
+  getDirectoryContentAsync,
+  currentStorageProvider,
+  getDirectoryAsync,
+  currentFolderId,
+} = useStorageProvider();
 
-const onAllFiles = async () => {
-  await navigateTo(useLocaleRoute()({ name: 'filesAll' }));
-};
-
-await useAsyncData('syncFoldersSubmenu', async () => readAllFoldersAsync());
+const { data } = await useAsyncData(
+  'syncFoldersSubmenu',
+  () => getDirectoryAsync(currentFolderId.value ?? ''),
+  { watch: [currentStorageProvider] }
+);
 
 const showDialog = ref(false);
 

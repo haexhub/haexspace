@@ -23,32 +23,36 @@ export const useSidebar = defineStore('sidebarStore', () => {
     },
   });
 
+  const { lastStorageProvider } = useStorageProvider();
   const menu = computed<ISidebarMenu>(() => ({
     top: [
       {
-        label: t('sidebar.profile'),
-        icon: 'i-[material-symbols--person-outline]',
-        to: { name: 'profile' },
+        label: t('sidebar.files'),
+        icon: 'i-[ph--folder-open]',
+        to: {
+          name: 'folders',
+          params: { provider: lastStorageProvider.value.slug },
+        },
+        submenu: [{ label: 'demo' }],
       },
       {
         label: t('sidebar.keepass'),
         icon: 'i-[mdi--safe]',
         to: { name: 'keepass' },
       },
-      {
-        label: t('sidebar.files'),
-        icon: 'i-[ph--folder-open]',
-        to: { name: 'files' },
-        submenu: [{ label: 'demo' }],
-      },
+    ],
+
+    bottom: [
       {
         label: t('sidebar.settings'),
         icon: 'i-[ph--gear-six]',
         to: { name: 'settings' },
       },
-    ],
-
-    bottom: [
+      {
+        label: t('sidebar.profile'),
+        icon: 'i-[material-symbols--person-outline]',
+        to: { name: 'profile' },
+      },
       {
         label: t('sidebar.logout'),
         icon: 'i-[ph--arrow-square-right]',

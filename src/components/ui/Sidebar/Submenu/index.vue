@@ -1,5 +1,5 @@
 <template>
-  <div class="py-2 overflow-auto flex flex-col min-h-fit h-full">
+  <div class="py-2 overflow-scroll flex flex-col h-[90%]">
     <slot />
   </div>
 </template>

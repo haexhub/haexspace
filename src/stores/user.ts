@@ -35,27 +35,25 @@ const loginAsync = async (email: string, password: string) => {
     return token.value;
   } catch (error) {
     throw createError({
-      message: (error as any).errors
-        .map((error: DirectusError) => error.message)
-        .join('. '),
+      message: JSON.stringify(error),
     });
   }
 };
 
 const logoutAsync = async () => {
-  const { auth, token } = storeToRefs(useDirectusStore());
-  if (token.value?.refresh_token) {
-    await auth.value.request(logout(token.value?.refresh_token, 'json'));
+  const { auth, token } = useDirectusStore();
+  if (token?.refresh_token) {
+    await auth.request(logout(token?.refresh_token, 'json'));
     await navigateTo(useLocaleRoute()({ name: 'home' }));
   }
 };
 
 const getCurrentUserAsync = async (): Promise<DirectusUser | null> => {
   try {
-    const { auth } = storeToRefs(useDirectusStore());
+    const { auth } = useDirectusStore();
     const { currentUser } = storeToRefs(useUserStore());
 
-    const user = (await auth.value.request(readMe())) as DirectusUser;
+    const user = (await auth.request(readMe())) as DirectusUser;
     currentUser.value = user;
     console.log('found user', currentUser.value);
     return currentUser.value;

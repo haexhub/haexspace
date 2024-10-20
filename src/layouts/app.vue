@@ -3,7 +3,7 @@
     class="h-svh w-screen flex flex-col relative"
     :class="minWidth"
   >
-    <div class="flex h-full">
+    <div class="flex h-full bg-red-500">
       <UiButton
         v-show="!show"
         class="top-2 left-2 absolute size-12 z-50 delay-500 sm:hidden sm:delay-0 bg-primary hover:bg-primary-hover transition-opacity"
@@ -14,7 +14,7 @@
       <UiSidebar :menu />
 
       <div
-        class="overflow-auto h-svh w-svw sm:blur-none transition-all"
+        class="overflow-auto h-svh w-full sm:blur-none transition-all"
         :class="{ 'blur-sm': show }"
       >
         <slot />

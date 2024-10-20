@@ -1,12 +1,6 @@
 <template>
   <UiPage>
-    <span>
-      {{ token }}
-    </span>
-
-    <div>
-      {{ folderTree }}
-    </div>
+    <UiTableFiles :items="data" />
   </UiPage>
 </template>
 
@@ -15,9 +9,9 @@ definePageMeta({
   name: 'keepass',
 });
 
-const { readAllFoldersAsync } = useFolderStore();
-const { folderTree } = storeToRefs(useFolderStore());
-const { token } = storeToRefs(useDirectusStore());
+const { providerFunctions } = useStorageProvider();
 
-await useAsyncData(() => readAllFoldersAsync());
+const { data } = await useAsyncData(() =>
+  providerFunctions().directoryContentAsync()
+);
 </script>

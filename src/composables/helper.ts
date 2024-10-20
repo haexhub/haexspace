@@ -61,7 +61,9 @@ export const readableFileSize = (sizeInByte: number | string = 0) => {
 
   return `${sizeInKb.toFixed(2)} KB`;
 };
-
-export const getSingleParam = (param: string | string[]) => {
-  return Array.isArray(param) ? (param.at(0) ?? '') : param;
+import type { LocationQueryValue } from 'vue-router';
+export const getSingleParam = (
+  param: string | string[] | LocationQueryValue | LocationQueryValue[]
+): string => {
+  return Array.isArray(param) ? (param.at(0) ?? '') : (param ?? '');
 };

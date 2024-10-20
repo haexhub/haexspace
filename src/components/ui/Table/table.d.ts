@@ -13,9 +13,9 @@ export interface ITableFileColumn {
 }
 
 export interface ITableFile {
-  id: string;
+  id?: string;
   name: string;
   size?: string | null;
-  modified: string | null;
+  modified?: string | null;
   type?: string | null;
 }

@@ -18,8 +18,8 @@ definePageMeta({
 const showDialog = ref(false);
 const showContextMenu = ref(true);
 
-const { currentFolderId, allFolders } = storeToRefs(useFolderStore());
-const { getFolderContentAsync } = useFolderStore();
+const { getDirectoryContentAsync, currentFolderId, currentStorageProvider } =
+  useStorageProvider();
 
 const { t } = useI18n();
 const contextMenu: IContextMenuItem[] = [
@@ -47,10 +47,10 @@ const contextMenu: IContextMenuItem[] = [
 ];
 
 const { data } = await useAsyncData(
-  `syncFolderContents:${currentFolderId.value}`,
-  () => getFolderContentAsync(),
+  `getDirectoryContentAsync:${currentFolderId.value}`,
+  () => getDirectoryContentAsync(currentFolderId.value),
   {
-    watch: [currentFolderId, allFolders],
+    watch: [currentFolderId, currentStorageProvider],
   }
 );
 

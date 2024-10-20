@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import type { DirectusUser } from '~/stores/directus/types';
+import type { DirectusUser } from '~/composables/storageProvider/directus/types';
 definePageMeta({
   name: 'test2',
 });

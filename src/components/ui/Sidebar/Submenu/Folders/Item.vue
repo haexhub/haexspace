@@ -10,7 +10,10 @@
         (event) => {
           event.preventDefault();
           navigateTo(
-            useLocaleRoute()({ name: 'folders', params: { id: item._id } })
+            useLocaleRoute()({
+              name: 'folders',
+              params: { folderId: item._id },
+            })
           );
         }
       "

@@ -1,8 +1,5 @@
 <template>
-  <DialogRoot
-    v-model:open="show"
-    @update:open="onUpdateShow"
-  >
+  <DialogRoot v-model:open="show">
     <DialogPortal>
       <DialogOverlay
         class="bg-slate-300/60 dark:bg-slate-800/60 data-[state=open]:animate-overlayShow fixed inset-0 z-30"
@@ -17,28 +14,22 @@
           {{ t('title') }}
         </DialogTitle>
 
-        <form @submit.prevent="onCreateFolderAsync">
-          <UiInput
-            v-model.trim="folderName"
-            :checkInput
-            :rules="
-              zod
-                .string()
-                .regex(/^[a-zA-Z0-9 ]+$/, t('message.onlyAlphanumericValues'))
-                .min(1)
-            "
-            v-model:errors="errors"
-          />
-
-          <div class="flex justify-end mt-4">
+        <div class="flex justify-end mt-4">
+          <DialogClose>
             <UiButton
               class="dark:text-slate-200 bg-primary border border-primary hover:text-primary hover:bg-primary/10 hover:ring items-center justify-center rounded px-4 py-2 font-semibold"
-              type="submit"
             >
-              {{ t('confirm') }}
+              {{ t('abort') }}
             </UiButton>
-          </div>
-        </form>
+          </DialogClose>
+
+          <UiButton
+            class="dark:text-slate-200 bg-red-600 border border-red-600 hover:text-red-600 hover:bg-red-600/10 hover:ring items-center justify-center rounded px-4 py-2 font-semibold"
+            @click="onDeleteFileAsync"
+          >
+            {{ t('confirm') }}
+          </UiButton>
+        </div>
 
         <DialogClose
           class="text-slate-600 hover:text-red-600 focus:shadow-slate-500 absolute top-0 right-[10px] inline-flex size-6 items-center justify-center rounded-full focus:outline-none"
@@ -52,44 +43,21 @@
 </template>
 
 <script setup lang="ts">
-import * as zod from 'zod';
-
 const show = defineModel({ type: Boolean, default: true });
-const errors = ref([]);
-const folderName = ref('');
-const checkInput = ref(false);
+
+defineProps({
+  fileId: String,
+});
 
 const { add } = useSnackbar();
-const { createFolderAsync, readAllFoldersAsync } = useDirectusFolders();
-const { currentFolderId } = storeToRefs(useDirectusFolders());
+
 const { t } = useI18n();
 
-const onCreateFolderAsync = async () => {
+const onDeleteFileAsync = async () => {
   try {
-    checkInput.value = true;
-    //checkInput.value = false;
-    if (!folderName.value || errors.value?.length) return;
-    console.log('create folder', currentFolderId.value);
-
-    await createFolderAsync({
-      name: folderName.value,
-      parent: currentFolderId.value,
-    });
-
-    await readAllFoldersAsync();
-
     show.value = false;
-    errors.value = [];
-    folderName.value = '';
   } catch (error) {
     add({ type: 'error', text: JSON.stringify(error) });
-  }
-};
-
-const onUpdateShow = (open: boolean) => {
-  if (!open) {
-    errors.value = [];
-    folderName.value = '';
   }
 };
 </script>

@@ -2,12 +2,10 @@
   <UiPage>
     <div class="h-svh overflow-hidden">
       <div class="flex h-full items-center justify-center">
-        <NuxtImg
+        <img
           class="object-cover object-center hidden md:block w-1/2 rounded-l h-full"
           src="/squirel_challenge.jpg"
           placeholder
-          loading="lazy"
-          format="webp"
           quality="80"
           alt="squirel"
         />
@@ -55,7 +53,7 @@
           </UiInput>
 
           <UiButton
-            class="bg-primary dark:bg-dark-primary py-4 px-8 focus:outline-none hover:bg-primary-hover dark:hover:bg-dark-primary-hover rounded text-xl"
+            class="bg-primary dark:bg-dark-primary py-4 px-8 focus:outline-none hover:bg-primary-hover dark:hover:bg-dark-primary-hover rounded text-xl text-slate-50"
             type="submit"
             @click.prevent="onLogin"
           >
@@ -72,7 +70,6 @@ definePageMeta({
   name: 'login',
 });
 
-const config = useRuntimeConfig();
 const { show } = storeToRefs(useSidebar());
 show.value = false;
 
@@ -86,7 +83,6 @@ const username = ref('');
 const { t } = useI18n({});
 
 const { loginAsync } = useUserStore();
-const { errors } = storeToRefs(useDirectusStore());
 
 const snackbar = useSnackbar();
 const localeRoute = useLocaleRoute();
@@ -97,6 +93,7 @@ const { execute, error, data, status } = await useAsyncData(
   { immediate: false }
 );
 
+const { lastStorageProvider, haexSpaceSlug } = useStorageProvider();
 const onLogin = async () => {
   try {
     //const { auth, token } = storeToRefs(useDirectusStore());
@@ -113,7 +110,12 @@ const onLogin = async () => {
     } else {
       console.log('all right', data.value);
       show.value = true;
-      await navigateTo(localeRoute({ name: 'filesAll' }));
+      await navigateTo(
+        localeRoute({
+          name: 'folders',
+          params: { provider: haexSpaceSlug },
+        })
+      );
     }
   } catch (e) {
     snackbar.add({ type: 'error', text: JSON.stringify(error.value) });

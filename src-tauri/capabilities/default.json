@@ -17,6 +17,10 @@
     "shell:allow-open",
     "fs:allow-read",
     "fs:allow-home-read-recursive",
+    "fs:allow-app-meta-recursive",
+    "fs:allow-home-meta-recursive",
+    "fs:read-meta",
+    "fs:allow-app-meta",
     "fs:deny-webview-data-windows",
     "fs:deny-webview-data-linux"
   ]

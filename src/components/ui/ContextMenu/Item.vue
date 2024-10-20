@@ -37,10 +37,11 @@ const props = defineProps({
     type: Object as PropType<IContextMenuItem>,
     default: () => {},
   },
-  context: any,
+  context: Object,
 });
 
 const onClick = () => {
+  console.log('om lcikc', props.context);
   if (props.item.handler) props.item.handler(props.context);
 };
 </script>
