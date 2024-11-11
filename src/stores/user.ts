@@ -3,12 +3,7 @@ import {
   type AuthenticationData,
   type DirectusUser,
 } from '@directus/sdk';
-import {
-  isDirectusError,
-  InvalidCredentialsError,
-  type DirectusError,
-} from '@directus/errors';
-import { unknown } from 'zod';
+
 export const useUserStore = defineStore('userStore', () => {
   const currentUser = ref<DirectusUser | null>(null);
   const errors = ref<unknown[]>([]);

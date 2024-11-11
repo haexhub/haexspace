@@ -9,7 +9,6 @@
 
 <script setup lang="ts">
 const { isDark } = storeToRefs(useUi());
-import { invoke } from '@tauri-apps/api/core';
 
 useHead({
   bodyAttrs: {
