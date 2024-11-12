@@ -17,7 +17,7 @@
 
     <div
       v-if="user"
-      class="px-4 pb-14 pt-4"
+      class="px-4"
     >
       <DirectusAvatar :user="user" />
 
@@ -66,10 +66,16 @@ definePageMeta({
 });
 
 const { t } = useI18n();
-const { getCurrentUserAsync } = useUserStore();
+const { getCurrentUserAsync, updateCurrentUserAsync } = useUserStore();
 
+const { add } = useSnackbar();
 const onUpdate = async () => {
-  //if (user.value) await updateCurrentUserAsync(user.value);
+  try {
+    if (user.value) await updateCurrentUserAsync(user.value);
+    add({ type: 'success', text: t('update.success') });
+  } catch (error) {
+    add({ type: 'error', text: JSON.stringify(error) });
+  }
 };
 
 const response = await useAsyncData('profile', () => getCurrentUserAsync());
@@ -82,13 +88,19 @@ const user = toRaw(response.data);
     "firstName": "Vorname",
     "lastName": "Nachname",
     "password": "Password",
-    "email": "E-Mail"
+    "email": "E-Mail",
+    "update": {
+      "success": "Daten aktualisiert"
+    }
   },
   "en": {
     "firstName": "Firstname",
     "lastName": "Lastname",
     "password": "Password",
-    "email": "E-Mail"
+    "email": "E-Mail",
+    "update": {
+      "success": "Update successfull"
+    }
   }
 }
 </i18n>

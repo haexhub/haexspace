@@ -95,18 +95,17 @@ export default defineNuxtConfig({
 
   security: {
     headers: {
-      crossOriginEmbedderPolicy: 'unsafe-none',
+      //crossOriginEmbedderPolicy: 'unsafe-none',
       contentSecurityPolicy: {
-        'img-src': ["'self'", 'data:'],
         'script-src': [
-          "'self'",
-          'https:',
-          "'unsafe-inline'",
-          "'strict-dynamic'",
           "'nonce-{{nonce}}'",
-          "'unsafe-eval'",
+          // The nonce allows the root script
+          "'strict-dynamic'",
+          // All scripts inserted by the root script will also be allowed
         ],
-        'upgrade-insecure-requests': false,
+        /* 'img-src': ["'self'", 'data:'],
+        'script-src': ['self', 'https:', 'nonce-{{nonce}}'],
+        'upgrade-insecure-requests': false, */
       },
       strictTransportSecurity: false,
     },

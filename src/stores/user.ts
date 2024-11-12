@@ -1,5 +1,7 @@
 import {
   logout,
+  readPermissions,
+  updateMe,
   type AuthenticationData,
   type DirectusUser,
 } from '@directus/sdk';
@@ -16,7 +18,7 @@ export const useUserStore = defineStore('userStore', () => {
     loginAsync,
     logoutAsync,
     setAuthCookies,
-    //updateCurrentUserAsync,
+    updateCurrentUserAsync,
   };
 });
 
@@ -48,12 +50,25 @@ const getCurrentUserAsync = async (): Promise<DirectusUser | null> => {
     const { auth } = useDirectusStore();
     const { currentUser } = storeToRefs(useUserStore());
 
-    const user = (await auth.request(readMe())) as DirectusUser;
+    const user = (await auth.request(
+      readMe({ fields: ['first_name', 'last_name', 'avatar', 'email'] })
+    )) as DirectusUser;
+
     currentUser.value = user;
     console.log('found user', currentUser.value);
     return currentUser.value;
   } catch (error) {
     return null;
+  }
+};
+
+const updateCurrentUserAsync = async (user: Partial<DirectusUser>) => {
+  try {
+    const { auth } = useDirectusStore();
+    console.log('update user', user);
+    await auth.request(updateMe(user));
+  } catch (error) {
+    console.error('user update', error);
   }
 };
 
