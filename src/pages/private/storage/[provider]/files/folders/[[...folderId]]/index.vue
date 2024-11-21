@@ -7,7 +7,7 @@
     </UiTableFiles>
   </UiContextMenu>
 
-  <DialogFolderCreate v-model="showDialog" />
+  <!-- <DialogFolderCreate v-model="showDialog" /> -->
 </template>
 
 <script setup lang="ts">
@@ -61,7 +61,9 @@ watch(
   () => console.log('watch data', data.value),
   { immediate: true }
 );
+
 const trigger = ref<HTMLButtonElement>();
+
 const onRightClick = () => {
   console.log('righjt lcik', trigger.value);
   showContextMenu.value = true;

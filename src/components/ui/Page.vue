@@ -5,7 +5,8 @@
   >
     <div
       v-if="$slots.header"
-      class="pl-12 sm:pl-0 h-16 sticky top-0 z-20 bg-slate-100 dark:bg-slate-900 shadow"
+      class="h-16 sticky top-0 z-20 bg-slate-100 dark:bg-slate-900 shadow transition-all duration-700"
+      :class="{ 'pl-12': !show }"
     >
       <slot name="header" />
     </div>
@@ -15,3 +16,7 @@
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+const { show } = storeToRefs(useSidebar());
+</script>

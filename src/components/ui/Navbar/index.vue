@@ -16,7 +16,7 @@
         >
         </UiButton>
         <NuxtLinkLocale
-          class="text-sm font-bold leading-relaxed hidden xs:inline-block whitespace-nowrap uppercase text-white mx-4"
+          class="text-sm font-bold leading-relaxed hidden sm:inline-block whitespace-nowrap uppercase text-white mx-4"
           to="/"
         >
           Haex Cloud

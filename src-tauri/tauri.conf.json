@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "identifier": "space.haex",
   "build": {
-    "beforeDevCommand": "pnpm dev",
+    "beforeDevCommand": "pnpm dev --host",
     "devUrl": "http://localhost:3333",
-    "beforeBuildCommand": "pnpm build",
+    "beforeBuildCommand": "pnpm generate",
     "frontendDist": "../dist"
   },
   "app": {
@@ -24,6 +24,7 @@
   "bundle": {
     "active": true,
     "targets": "all",
+
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",

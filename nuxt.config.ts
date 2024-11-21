@@ -61,7 +61,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    //'@nuxt/image',
+    '@nuxt/image',
     '@nuxtjs/i18n',
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
@@ -95,17 +95,14 @@ export default defineNuxtConfig({
 
   security: {
     headers: {
-      //crossOriginEmbedderPolicy: 'unsafe-none',
       contentSecurityPolicy: {
         'script-src': [
-          "'nonce-{{nonce}}'",
           // The nonce allows the root script
-          "'strict-dynamic'",
+          "'nonce-{{nonce}}'",
           // All scripts inserted by the root script will also be allowed
+          "'strict-dynamic'",
         ],
-        /* 'img-src': ["'self'", 'data:'],
-        'script-src': ['self', 'https:', 'nonce-{{nonce}}'],
-        'upgrade-insecure-requests': false, */
+        'upgrade-insecure-requests': false, // only in development necessary
       },
       strictTransportSecurity: false,
     },
@@ -114,13 +111,13 @@ export default defineNuxtConfig({
   ssr: false,
   // Enables the development server to be discoverable by other devices for mobile development
   devServer: {
-    host: '0.0.0.0',
+    host: process.env.TAURI_DEV_HOST || 'localhost',
     port: Number.parseInt(process.env.PORT ?? '3333'),
   },
 
   nitro: {
-    compressPublicAssets: true,
-    minify: true,
+    /* compressPublicAssets: true,
+    minify: true, */
   },
 
   vite: {

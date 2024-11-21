@@ -7,7 +7,7 @@
     <i
       v-if="icon"
       :class="icon"
-      class="size-full text-inherit"
+      class="text-inherit min-w-1 min-h-1 size-full"
     ></i>
     <slot />
   </button>

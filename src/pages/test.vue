@@ -1,23 +1,41 @@
 <template>
   <div>
-    test root {{ isDark }}
+    darkMode {{ isDark }}
     <NuxtLinkLocale to="/">Home</NuxtLinkLocale>
     {{ t('test') }}
-
-    <NuxtPage />
+    <div>
+      <UiInput
+        v-model="path"
+        label="Path"
+      />
+      <UiButton @click="doSomething">Action</UiButton>
+      {{ success }}
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { Command } from '@tauri-apps/plugin-shell';
+
+const success = ref();
+const path = ref('/');
+const doSomething = async () => {
+  try {
+    success.value = await Command.create('dufs', [
+      '-A',
+      `${path.value}`,
+    ]).execute();
+  } catch (error) {
+    success.value = error;
+  }
+};
+
 definePageMeta({
   name: 'test',
 });
-const { show, menu } = storeToRefs(useSidebar());
+
 const { isDark } = storeToRefs(useUi());
 const { t } = useI18n();
-const { getCurrentUserAsync } = useUserStore();
-
-//const { syncFoldersAsync } = useDirectusFolders();
 </script>
 
 <i18n lang="json">

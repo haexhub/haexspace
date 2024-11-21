@@ -39,13 +39,13 @@
           >
             <template #append>
               <UiButton
-                class="flex p-0"
-                aria-label="toogle visibility of password"
+                class="flex size-6"
+                aria-label="toogle visibility of password "
                 @click.prevent="password.show = !password.show"
                 :icon="
                   password.show
                     ? 'i-[mdi--eye-off-outline]'
-                    : 'i-[mdi--eye-outline]'
+                    : 'i-[mdi--eye-outline] '
                 "
               >
               </UiButton>

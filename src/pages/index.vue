@@ -18,17 +18,12 @@
         >
       </div>
     </template>
-    <UiCard>
-      <img
-        src="/logo.svg"
-        class="bg-primary p-3 size-16"
-        placeholder
-      />
-      <span class="flex items-center gap-2">
-        <p>Hallo mein</p>
-        <i class="i-[game-icons--caterpillar] text-green-500 size-10"></i>
-      </span>
-    </UiCard>
+    <div class="flex">
+      <UiCard class="bg-teal-400">
+        <NuxtImg src="images/squirrel_nest.jpeg" />
+        Create an Account
+      </UiCard>
+    </div>
   </UiPage>
 </template>
 

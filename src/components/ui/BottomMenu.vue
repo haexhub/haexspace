@@ -1,16 +1,14 @@
 <template>
   <div
-    class="bg-slate-200 h-10 fixed bottom-0 justify-center items-center flex left-0 sm:left-96 right-0 z-10"
+    class="bg-slate-200 h-10 fixed bottom-0 justify-center items-center flex right-0 z-10 transition-all duration-700 w-full"
+    :class="{ 'pl-96': show }"
   >
     <div class="w-full relative flex h-full">
       <div class="w-full flex items-center justify-around">
         <UiButton
-          icon="i-[clarity--scissors-line]  "
+          icon="i-[clarity--scissors-line]  size-full"
           class="size-10 hover:shadow hover:text-primary"
         />
-        <!--  <UiIcon
-           icon="i-[clarity--scissors-line]"
-           class="size-8 text-slate-800" -->
 
         <UiButton
           icon="i-[material-symbols--file-copy-outline]"
@@ -67,6 +65,7 @@
 import { onClickOutside } from '@vueuse/core';
 
 const { leftMenu, rightMenu, mainMenu } = storeToRefs(useBottomMenuStore());
+const { show } = storeToRefs(useSidebar());
 const target = ref();
 onClickOutside(target, (event) => (mainMenu.value.show = false));
 </script>

@@ -1,8 +1,7 @@
 <template>
   <div
-    class="flex justify-between shrink-0 transition-[width] ease-in duration-300 sm:w-96 max-w-full z-30 h-full overflow-hidden absolute sm:relative shadow"
-    :class="[show ? 'w-full xs:w-96 ' : 'w-0']"
-    ref="sidebar"
+    class="flex justify-between shrink-0 transition-[width] ease-in duration-300 max-w-full z-30 h-full overflow-hidden absolute sm:relative shadow"
+    :class="[show ? 'w-full sm:w-96 ' : 'sm:w-0 w-0']"
   >
     <div class="flex flex-col w-16 bg-slate-800 shrink-0">
       <img
@@ -44,7 +43,7 @@
           Haex Space
         </span>
         <UiButton
-          class="size-10 sm:hidden ml-auto border-0 bg-primary hover:bg-primary-hover m-2"
+          class="size-10 ml-auto border-0 bg-primary hover:bg-primary-hover m-2"
           icon="i-[ph--x] p-4"
           @click="show = false"
         />
@@ -71,7 +70,4 @@ defineProps({
 });
 
 const { show } = storeToRefs(useSidebar());
-
-const sidebar = ref<HTMLElement | null>(null);
-onClickOutside(sidebar, () => (show.value = false));
 </script>
