@@ -34,6 +34,7 @@ export default {
           'primary-hover': colors.teal[600],
           'primary': colors.teal[500],
         },
+        'secondary': colors.sky[500],
       },
 
       fontFamily: {

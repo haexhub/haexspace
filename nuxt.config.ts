@@ -67,7 +67,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vueuse/nuxt',
     'floating-vue/nuxt',
-    'nuxt-security',
+    //'nuxt-security',
     'nuxt-snackbar',
     'pinia-plugin-persistedstate/nuxt',
     'radix-vue/nuxt',

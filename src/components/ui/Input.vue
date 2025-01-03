@@ -36,6 +36,7 @@
         v-model="input"
         :autocomplete="autocomplete ?? name ?? 'off'"
         v-bind="$attrs"
+        ref="inputRef"
       />
 
       <div
@@ -112,5 +113,6 @@ const checkInput = () => {
   }
 };
 
-defineExpose({ checkInput });
+const inputRef = ref(null);
+defineExpose({ checkInput, inputRef });
 </script>

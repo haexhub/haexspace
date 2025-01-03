@@ -1,9 +1,9 @@
 <template>
   <UiPage>
-    <div class="h-svh overflow-hidden">
-      <div class="flex h-full items-center justify-center">
+    <div class="">
+      <div class="flex items-center justify-center overflow-hidden h-dvh">
         <img
-          class="object-cover object-center hidden md:block w-1/2 rounded-l h-full"
+          class="object-cover object-center hidden lg:block w-1/2 rounded-l my-auto h-screen"
           src="/squirel_challenge.jpg"
           placeholder
           quality="80"
@@ -11,11 +11,34 @@
         />
 
         <form
-          class="p-4 flex flex-col md:mx-4 xl:mx-auto w-full md:w-1/2 xl:w-1/3 bg-slate-100 dark:bg-slate-800 rounded-lg space-y-6 shadow-md dark:shadow-slate-900"
+          class="lg:mx-2 p-4 flex flex-col w-full lg:w-1/2 bg-slate-100 dark:bg-slate-800 rounded-lg gap-3 shadow-md dark:shadow-slate-900"
         >
           <h2 class="text-lg font-medium title-font">
             {{ t('login') }}
           </h2>
+
+          <div v-if="accounts.length">
+            <h3 class="text-sm">{{ t('lastAccounts') }}</h3>
+            <ul class="flex flex-col gap-1">
+              <li
+                v-for="account in accounts"
+                class="bg-slate-200 dark:bg-slate-600 dark:text-slate-100 dark:hover:bg-secondary px-2 py-1 rounded flex items-center"
+              >
+                <UiButton
+                  class="text-sm w-full"
+                  @click="onSelectAccount(account)"
+                >
+                  {{ account }}
+                </UiButton>
+
+                <UiButton
+                  icon="i-[material-symbols--delete-outline]"
+                  class="text-red-600 hover:scale-150"
+                  @click="onRemoveAccount(account)"
+                />
+              </li>
+            </ul>
+          </div>
 
           <UiInput
             v-model="username"
@@ -32,10 +55,11 @@
             :label="t('password')"
             :placeholder="t('password')"
             :type="password.show ? 'text' : 'password'"
-            name="password"
-            v-model="password.value"
-            prepend-icon="i-[mdi--password-outline] p-3"
             autocomplete="current-password"
+            name="password"
+            prepend-icon="i-[mdi--password-outline] p-3"
+            ref="passwordRef"
+            v-model="password.value"
           >
             <template #append>
               <UiButton
@@ -70,6 +94,13 @@ definePageMeta({
   name: 'login',
 });
 
+const { getAccountsAsync, addAccountAsync, removeAccountAsync } =
+  useTauriStore();
+const accounts = ref<string[]>([]);
+
+accounts.value = await getAccountsAsync();
+
+const passwordRef = ref();
 const password = reactive({
   show: false,
   value: '',
@@ -106,10 +137,12 @@ const onLogin = async () => {
     } else {
       console.log('all right', data.value);
 
+      await addAccountAsync(username.value);
+
       await navigateTo(
         localeRoute({
           name: 'profile',
-          //params: { provider: haexSpaceSlug },
+          //params: { provider: haexSpaceSlug }
         })
       );
     }
@@ -117,6 +150,16 @@ const onLogin = async () => {
     snackbar.add({ type: 'error', text: JSON.stringify(error.value) });
     console.log('ERROR onLogin', e);
   }
+};
+
+const onSelectAccount = (account: string) => {
+  username.value = account;
+  passwordRef.value.inputRef.focus();
+};
+
+const onRemoveAccount = async (account: string) => {
+  await removeAccountAsync(account);
+  accounts.value = await getAccountsAsync();
 };
 </script>
 
@@ -126,13 +169,15 @@ const onLogin = async () => {
     "login": "Anmelden",
     "username": "Nutzername",
     "password": "Passwort",
-    "loginError": "Kombination von Nutzername und Passwort stimmen nicht überein"
+    "loginError": "Kombination von Nutzername und Passwort stimmen nicht überein",
+    "lastAccounts": "Zuletzt verwendete Accounts"
   },
   "en": {
     "login": "Login",
     "username": "Username",
     "password": "Password",
-    "loginError": "Kombination of username and password doesn't match"
+    "loginError": "Kombination of username and password doesn't match",
+    "lastAccounts": "Last used accounts"
   }
 }
 </i18n>

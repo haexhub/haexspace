@@ -1,17 +1,29 @@
-import { join } from '@tauri-apps/api/path';
 import {
   BaseDirectory,
   readDir,
+  readFile,
   type DirEntry,
   lstat,
+  exists,
 } from '@tauri-apps/plugin-fs';
-
 import type { IBreadCrumb } from '..';
 import type { ITableFile } from '~/components/ui/Table/table';
 
 export const useTauriFolders = () => {
-  const readDirectoryAsync = async (directory: string = '') => {
-    const dir = await readDir(directory, { baseDir: BaseDirectory.Home });
+  const readDirectoryAsync = async (
+    directory: string = '',
+    recursive: boolean = false
+  ) => {
+    /* const exi = await exists('test.md', { baseDir: BaseDirectory.Home });
+    console.log('exists', exi);
+    if (exi) {
+      const file = await readFile('test.md', { baseDir: BaseDirectory.Home });
+      console.log('file', file);
+    } */
+    //const dir = await readDir(await homeDir());
+    const file = await readFile('test.md', { baseDir: BaseDirectory.Desktop });
+    console.log('file', file);
+    const dir = await readDir('', { baseDir: BaseDirectory.Home });
     console.log('tauri readDirectoryAsync', directory, dir);
     return dir;
   };
@@ -26,6 +38,7 @@ export const useTauriFolders = () => {
   const getDirectoryContentAsync = async (
     directory: string | null = ''
   ): Promise<ITableFile[]> => {
+    console.log('tauri readDirectoryAsync dir', directory);
     const content = await readDirectoryAsync(directory ?? '');
     console.log('tauri getDirectoryContentAsync', content);
     return filesToTableAsync(directory ?? '', content);

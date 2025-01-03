@@ -1,4 +1,5 @@
 <template>
+  {{ useRoute().path }} {{ useRoute().params }}
   <UiContextMenu :menu="contextMenu">
     <UiTableFiles
       :items="data"
@@ -7,6 +8,7 @@
     </UiTableFiles>
   </UiContextMenu>
 
+  <UiButton @click="read">Read</UiButton>
   <!-- <DialogFolderCreate v-model="showDialog" /> -->
 </template>
 
@@ -48,9 +50,12 @@ const contextMenu: IContextMenuItem[] = [
   },
 ];
 
-const { data } = await useAsyncData(
+const { data, execute } = await useAsyncData(
   `getDirectoryContentAsync:${currentFolderId.value}`,
-  () => getDirectoryContentAsync(currentFolderId.value),
+  () => {
+    console.log('???');
+    return getDirectoryContentAsync(currentFolderId.value);
+  },
   {
     watch: [currentFolderId, currentStorageProvider],
   }
@@ -67,6 +72,11 @@ const trigger = ref<HTMLButtonElement>();
 const onRightClick = () => {
   console.log('righjt lcik', trigger.value);
   showContextMenu.value = true;
+};
+
+const read = async () => {
+  console.log('read');
+  await execute;
 };
 </script>
 
